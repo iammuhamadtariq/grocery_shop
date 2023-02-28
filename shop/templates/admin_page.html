@@ -1,0 +1,164 @@
+
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+    <div class="row">
+      <div class="col-sm">
+        <h2> Add Product Here </h2>
+            <form class="form-group" method="POST" action="{% url 'add_product' %}" enctype='multipart/form-data'> {% csrf_token %}
+                
+                    
+                    {{ product_form.as_p }}
+        
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+            </form>   
+      </div>
+      <div class="col-sm">
+        <h2> Add Category of Product Here </h2>
+                <form class="form-group" method="POST" action="{% url 'add_category' %}"> {% csrf_token %}
+                     
+            
+                        {{ category_form.as_p }}
+
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+             </form>
+      </div>
+    
+    </div>
+    <div class="row">
+
+        <div class="col-sm">
+            
+            <h2>List of all users </h2>
+           
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">User Email</th>
+                    <th scope="col">User Password</th>
+                    <th scope="col">User Type</th>
+                    <th scope="col">Authorization</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in user %}
+                    <tr>
+                    
+                    <td>{{u.customer_name}}</td>
+                    <td>{{u.customer_email}}</td>
+                    <td>{{u.customer_password}}</td>
+                    <td>{{u.customer_type}}</td>
+                        <td>
+                           
+                            <a class="btn btn-sm btn-info" href="{% url 'update_user_type' u.id %}">Make Admin</a>
+                           
+                         </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+          
+            
+           <div class="row">
+
+            <div class="col-sm">
+                
+                <h2>List of all Orders </h2>
+               
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Delivery Information</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                        
+                        <td>{{order.product}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>{{order.price}}</td>
+                        <td>{{ order.customer.customer_name}} {{order.address}} {{order.phone}}</td>
+                        <td><img class="card-img-top"  
+                            style="width:50px;height:60px;" src="{{order.product.product_image.url}}" alt="rounded float-left"></td>
+                            <td>
+                               
+                                
+                                <a class="btn btn-sm btn-info" href="#">Process</a>
+                                
+                             </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="row">
+
+                    <div class="col-sm">
+                        
+                        <h2>List of all Products </h2>
+                       
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">CRUD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                <tr>
+                                
+                                <td>{{product.product_name}}</td>
+                                <td>{{product.product_price}}</td>
+                                <td>{{product.product_catagory}}</td>
+                                <td>{{product.product_address}}</td>
+                                <td><img class="card-img-top"  
+                                    style="width:50px;height:60px;" src="{{product.product_image.url}}" alt="rounded float-left"></td>
+                                    <td>
+                                       
+                                        
+                                        <a class="btn btn-sm btn-info" href="{% url 'delete_product' product.id %}">Delete</a>
+                                        
+                                     </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+        </div>
+        
+        
+      </div>
+</div>
+    
+
+
+{% endblock %}

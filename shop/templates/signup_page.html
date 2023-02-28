@@ -1,0 +1,38 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+
+<div class="container mx-auto">
+    
+<h1> This is signup page</h1>
+
+
+{% if messages %}
+
+{% for message in messages %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+     {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+{% endfor %}
+
+{% endif %}
+<form class="form-group" method="POST" action="{% url 'signup_page' %}"> {% csrf_token %}
+    <div class="form-group">
+        
+        {{ customer_form.as_p }}
+
+     
+
+        <button type="submit" class="btn btn-primary">Create Account</button>
+</form>
+  
+
+
+</div>
+
+{% endblock %}

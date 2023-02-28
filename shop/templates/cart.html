@@ -1,0 +1,50 @@
+{% extends 'base.html' %} 
+{% block content %}
+{% load cart %}
+
+
+
+    <div class="container">
+        <div class="border rounded p-4 m-4">
+            <h1> Following is Detail of Your Order </h1>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <th> Product Name </th>
+                    <th> Price of Product </th>
+                    <th> Quantity of Product </th>
+                    <th> Total Price </th> 
+                </thead>
+                {% for product in products_in_cart %}
+                <tr>
+                    <td>  {{ product.product_name }} </td>
+                    <td>  {{ product.product_price }} </td>
+                    
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart}}</td>
+                </tr>
+                {% endfor %}
+
+            <tfoot class="table-dark"> 
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="" colspan="">Total</th>
+                    <th>{{products_in_cart|total_order_price:request.session.cart}}</th>
+                </tr>
+            </tfoot>
+            </table>
+                <form action="/check_out" method="POST"> {% csrf_token %}
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="Enter Phone Number" aria-describedby="helpId">
+                    <input type="text" name="address" id="address" class="form-control" placeholder="Enter Your Address" aria-describedby="helpId">
+                    <input type="submit" class="btn btn-success form-control" value="Checkout">
+                
+                </div>
+            </form>
+            
+        </div>
+
+    </div>
+  
+{% endblock %}

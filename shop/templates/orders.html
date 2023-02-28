@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+        
+        </div>
+    </div>
+
+
+</div>
+
+    {% for order in orderss %}
+<table class="table">
+    <tr>
+        <td>{{ order.product }} </td>
+        <td>{{ order.customer }} </td>
+        <td>{{ order.quantity }} </td>
+        <td>{{ order.price }} </td>
+        <td>{{ order.addres }} </td>
+        <td>{{ order.phone }} </td>
+        <td>{{ order.date }} </td>
+    </tr>
+
+</table>
+
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+
+<div class="container mx-auto">
+    
+<h1> Enter Your Information to Login</h1>
+
+
+<form class="form-group" method="POST" action="{% url 'login' %}"> {% csrf_token %}
+    <div class="form-group">
+        
+        {{ login_form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Click Here For Login</button>
+</form>
+  
+
+
+</div>
+
+{% endblock %}
